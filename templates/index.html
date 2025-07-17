@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spam Detection App</title>
+  <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+          margin: 0;
+          padding: 0;
+          height: 100vh;
+          background: linear-gradient(135deg, #2c003e, #3b0069, #43006c, #150045);
+          
+          background-size: 400% 400%;
+          animation: gradientMove 12s ease infinite;
+          font-family: 'Poppins', sans-serif;
+          color: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.5s ease;
+        }
+
+        @keyframes gradientMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .container {
+          backdrop-filter: blur(30px);
+          background: rgba(255, 255, 255, 0.08);
+          
+          border-radius: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 40px 30px;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+          text-align: center;
+          max-width: 550px;
+          width: 90%;
+          transition: all 0.5s ease;
+        }
+
+        h1 {
+          font-size: 3rem;
+          margin-bottom: 25px;
+          background: linear-gradient(to right, #ff85ff, #cc77ff, #7d8fff);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          transition: all 0.5s ease;
+        }
+
+        textarea {
+          width: 90%;
+          height: 120px;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.04);
+          backdrop-filter: blur(10px);
+          padding: 15px;
+          color: #fff;
+          font-size: 1rem;
+          margin-bottom: 20px;
+          resize: none;
+          outline: none;
+          transition: all 0.5s ease;
+        }
+
+        textarea::placeholder {
+          color: #cccccc;
+        }
+
+        button {
+          padding: 14px 30px;
+          border: none;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #a64bf4, #7733ff);
+          color: #fff;
+          font-size: 1.1rem;
+          cursor: pointer;
+          box-shadow: 0 4px 20px rgba(123, 67, 255, 0.5);
+          transition: 0.3s ease;
+        }
+
+        button:hover {
+          background: linear-gradient(135deg, #8730ff, #a64bf4);
+          box-shadow: 0 6px 25px rgba(132, 79, 255, 0.7);
+        }
+
+        .result {
+          margin-top: 25px;
+          padding: 20px;
+          border-radius: 15px;
+          background: rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+          transition: all 0.5s ease;
+        }
+
+        .result h2 {
+          margin: 0;
+          font-size: 1.8rem;
+          background: linear-gradient(to right, #ff95fc, #a07eff);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          transition: all 0.5s ease;
+        }
+
+        .result p {
+          margin-top: 10px;
+          color: #eee;
+        }
+
+        body.safe-mode {
+          background: linear-gradient(to right, #a8ff78, #78ffd6);
+          color: #003300;
+        }
+
+        body.safe-mode .container {
+          background: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 32px rgba(0, 100, 0, 0.3);
+        }
+
+        body.safe-mode h1 {
+          background: linear-gradient(to right, #005500, #00aa66);
+          -webkit-background-clip: text;
+          background-clip: text;
+          
+          -webkit-text-fill-color: transparent;
+        }
+
+        body.safe-mode button {
+          background: linear-gradient(135deg, #007733, #009955);
+          box-shadow: 0 4px 20px rgba(0, 150, 50, 0.4);
+        }
+
+        body.safe-mode .result {
+          background: rgba(255, 255, 255, 0.3);
+        }
+
+        body.safe-mode .result h2 {
+          background: linear-gradient(to right, #006600, #00bb88);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        body.safe-mode .result p {
+          color: #004400;
+        }
+
+        body.spam-mode {
+          background: linear-gradient(to right, #ff0844, #ffb199);
+          color: #440000;
+        }
+
+        body.spam-mode .container {
+          background: rgba(255, 255, 255, 0.25);
+          box-shadow: 0 8px 32px rgba(100, 0, 0, 0.4);
+        }
+
+        body.spam-mode h1 {
+          background: linear-gradient(to right, #ff3300, #cc0000);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        body.spam-mode button {
+          background: linear-gradient(135deg, #aa0000, #ff2200);
+          box-shadow: 0 4px 20px rgba(255, 50, 50, 0.5);
+        }
+
+        body.spam-mode .result {
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        body.spam-mode .result h2 {
+          background: linear-gradient(to right, #ff0000, #ff7f50);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        body.spam-mode .result p {
+          color: #660000;
+        }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📩 Spam Detector</h1>
+    <form action="/predict" method="post">
+      <textarea name="message" placeholder="Enter your message here..." required></textarea>
+      <button type="submit">Check Message</button>
+    </form>
+    {% if prediction %}
+      <div class="result">
+        <h2>Result: {{ prediction }}</h2>
+        <p>Your Message: "{{ user_message }}"</p>
+      </div>
+    {% endif %}
+  </div>
+  <script>
+    let result = "{{ prediction }}";
+        if (result.trim() === "🚫 SPAM!") {
+              document.body.classList.remove("safe-mode");
+              document.body.classList.add("spam-mode");
+        } else if (result.trim() === "✅ NOT SPAM!") {
+              document.body.classList.remove("spam-mode");
+              document.body.classList.add("safe-mode");
+        }
+  </script>
+</body>
+</html>
